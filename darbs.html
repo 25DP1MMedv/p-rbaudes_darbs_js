@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spin & Win</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="main.css"/>
+
+</head>
+<body>
+
+  <div class="app">
+
+    <header class="top-bar">
+      <div class="brand">SPIN &amp; WIN</div>
+      <div class="balance-wrap">
+        <span class="balance-label">Bilance</span>
+        <span class="balance" id="balance">1.00 €</span>
+      </div>
+    </header>
+
+    <main class="main">
+
+      <!-- Laimesta josla — cik daudz vari vēl laimēt -->
+      <div class="win-bar-wrap">
+        <div class="win-bar-track">
+          <div class="win-bar-fill" id="win-bar"></div>
+        </div>
+        <div class="win-bar-labels">
+          <span>0 €</span>
+          <span id="win-bar-val">0.00 € laimēts</span>
+          <span>1.00 € max</span>
+        </div>
+      </div>
+
+      <!-- Rullītis -->
+      <div class="wheel-area">
+        <div class="pointer">▼</div>
+        <div class="wheel-ring">
+          <canvas class="wheel-canvas" id="wheel-canvas" width="280" height="280"></canvas>
+          <div class="wheel-center">
+            <div class="wheel-multi" id="wheel-multi">?</div>
+            <div class="wheel-sublabel">multiplieris</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Likme -->
+      <div class="bet-section">
+        <div class="section-label">Likme</div>
+        <div class="bet-row">
+          <button class="adj-btn" id="btn-minus">−</button>
+          <div class="bet-display" id="bet-display">0.10 €</div>
+          <button class="adj-btn" id="btn-plus">+</button>
+        </div>
+        <div class="quick-row">
+          <button class="quick-btn" data-val="0.10">10c</button>
+          <button class="quick-btn" data-val="0.20">20c</button>
+          <button class="quick-btn" data-val="0.50">50c</button>
+          <button class="quick-btn" data-val="1.00">MAX</button>
+        </div>
+      </div>
+
+      <!-- Griezt -->
+      <button class="spin-btn" id="spin-btn">GRIEZT</button>
+
+      <!-- Rezultāts -->
+      <div class="result-box" id="result-box">
+        <div class="result-msg" id="result-msg">Izvēlies likmi un griezies!</div>
+      </div>
+
+      <!-- Vēsture -->
+      <div class="history-wrap">
+        <div class="section-label">Vēsture</div>
+        <div class="history-list" id="history-list">
+          <div class="history-empty">Vēl nav neviena grieziena.</div>
+        </div>
+      </div>
+
+    </main>
+
+    <footer class="footer">
+      <button class="reset-btn" id="reset-btn">↺ Jauna spēle (1.00 €)</button>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
