@@ -10,25 +10,39 @@
 <body>
 <div id="app">
   <h1>SPIN &amp; WIN</h1>
-  <div class="subtitle">🎯 1. LĪMENIS — Sasniedz 100€</div>
+  <div class="subtitle">1. LĪMENIS — Sasniedz 100€</div>
   <div class="progress-wrap">
     <div class="progress-label"><span>Progress uz 100€</span><span id="prog-text">20.00€ / 100€</span></div>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:20%"></div></div>
   </div>
   <div class="main">
+
+    <!-- RITENIS + REZULTĀTS -->
     <div class="wheel-wrap">
       <div class="pointer"></div>
       <canvas id="wheel" width="260" height="260"></canvas>
       <div class="result-box">
+        <div class="result-label">Rezultāts</div>
         <div id="result">Spiedi GRIEZT!</div>
         <div id="joke"></div>
       </div>
     </div>
+
+    <!-- PANELIS -->
     <div class="panel">
       <div class="balance-row">
-        <div><div class="balance-label">Bilance</div><div class="balance-val" id="balance">20.00 €</div></div>
-        <div style="text-align:right"><div class="balance-label">Likme</div><div class="bet-inline" id="bet-disp">0.01 €</div></div>
+        <div class="balance-card">
+          <div class="balance-label">Bilance</div>
+          <div class="balance-val" id="balance">20.00 €</div>
+        </div>
+        <div class="balance-card">
+          <div class="balance-label">Likme</div>
+          <div class="bet-inline" id="bet-disp">0.01 €</div>
+        </div>
       </div>
+
+      <div class="divider"></div>
+
       <div class="bet-label">Mainīt likmi</div>
       <div class="bet-row">
         <button class="adj-btn" id="minus">−</button>
@@ -40,10 +54,18 @@
         <button class="qbtn" data-add="10">+10€</button>
         <button class="qbtn" data-add="0.5">+0.50€</button>
         <button class="qbtn" data-add="5">+5€</button>
+        <button class="qbtn qbtn-minus" data-sub="1">−1€</button>
+        <button class="qbtn qbtn-minus" data-sub="10">−10€</button>
+        <button class="qbtn qbtn-minus" data-sub="0.5">−0.50€</button>
+        <button class="qbtn qbtn-minus" data-sub="5">−5€</button>
       </div>
+
+      <div class="divider"></div>
+
       <button class="reset-btn" id="reset-btn">🔄 SĀKT NO JAUNA</button>
       <button id="spin">GRIEZT</button>
     </div>
+
   </div>
 </div>
 
