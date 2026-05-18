@@ -38,18 +38,26 @@ h1 {
 /* PROGRESS */
 .progress-wrap {
   background: #1a1a1a;
-  border: 1px solid #2a2a2a;
-  border-radius: 8px;
-  padding: 7px 14px;
+  border: 1px solid #2f2f2f;
+  border-radius: 16px;
+  padding: 16px 20px;
   flex-shrink: 0;
+
+  box-shadow:
+    0 0 30px rgba(255,50,50,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.03);
 }
 
 .progress-label {
   display: flex;
   justify-content: space-between;
-  font-size: 12px;
-  color: #aaa;
-  margin-bottom: 4px;
+  align-items:center;
+
+  font-size: 18px;
+  color: #ddd;
+
+  margin-bottom: 12px;
+  font-weight:700;
 }
 
 .progress-label span:last-child { color: #ff3333; font-weight: 700; }
@@ -71,8 +79,8 @@ h1 {
 /* MAIN — ritenis lielāks, panelis fiksēts platums */
 .main {
   display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 14px;
+  grid-template-columns: 1fr 750px;
+  gap: 22px;
   flex: 1;
   min-height: 0;
 }
@@ -340,4 +348,38 @@ h1 {
 @media (max-width: 700px) {
   .main { grid-template-columns: 1fr; }
   html, body { overflow: auto; }
+}
+.max-btn{
+    width:100%;
+    height:58px;
+
+    border:none;
+    border-radius:16px;
+
+    background:
+        linear-gradient(180deg,#ffb100,#ff7a00);
+
+    color:#111;
+
+    font-family:'Black Han Sans',sans-serif;
+    font-size:16px;
+    letter-spacing:1px;
+
+    cursor:pointer;
+
+    transition:0.18s;
+
+    box-shadow:
+        0 0 24px rgba(255,150,0,0.35);
+}
+
+.max-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 0 30px rgba(255,170,0,0.45);
+}
+
+.max-btn:active{
+    transform:scale(0.98);
 }

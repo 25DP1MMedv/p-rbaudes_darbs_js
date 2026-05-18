@@ -277,3 +277,14 @@ spinBtn.onclick = () => {
 
   requestAnimationFrame(frame);
 };
+// MAX poga
+document.getElementById('max-btn').onclick = () => {
+  bet = +balance.toFixed(2);
+
+  // lai nevar būt mazāk par minimumu
+  if (bet < MIN_BET) {
+    bet = MIN_BET;
+  }
+
+  updateUI();
+};
