@@ -15,7 +15,6 @@ function getCx() { return canvas.width / 2; }
 function getCy() { return canvas.height / 2; }
 function getR()  { return canvas.width / 2 - 6; }
 
-// SECTORS
 const SECTORS = [
   { text: "0x",   multi: 0,    fill: "#c0392b", tc: "#ffaaaa" },
   { text: "0.2x", multi: 0.2,  fill: "#7b241c", tc: "#ffbbbb" },
@@ -29,7 +28,6 @@ const SECTORS = [
   { text: "10x",  multi: 10,   fill: "#922b21", tc: "#ff6666" },
 ];
 
-// WEIGHTS — 0x samazināts, 10x palielināts, vieglāk uzvarēt
 const WEIGHTS = [0.12, 0.10, 0.13, 0.22, 0.14, 0.12, 0.08, 0.045, 0.02, 0.015];
 
 const N     = SECTORS.length;
@@ -47,27 +45,27 @@ let bet          = 0.01;
 let spinning     = false;
 let currentAngle = 0;
 let totalSpins   = 0;
-
 const JOKES_LOSE = [
-  "Tu zaudēji. Tagad ūdens ar maizi vakariņās 🍞",
-  "Kazino īpašnieks tiko pasūtīja Ferrari 🏎",
-  "Tavs maks aizgāja depresijā 😢",
-  "Tagad meklēsi monētas zem dīvāna 🛋",
-  "Bankas konts: critical damage 💀",
-  "Tu sponsorē kazino elektrību ⚡",
-  "Kebaba vietā būs roltons 🍜",
-  "Šitais spins bija finanšu pašnāvība 📉",
-  "Tavs IBAN šobrīd raud 😭",
+  "Tu zaudēji. Kazino īpašnieks tikko pasūtīja jaunu jahtu.",
+  "Finanšu eksperts tavā gadījumā būtu raudājis.",
+  "Tavs maks šobrīd pieprasa psihologa konsultāciju.",
+  "Šis spins tika reģistrēts kā labdarība kazino labā.",
+  "Ekonomisti šo sauc par 'optimālu kapitāla pārdali'.",
+  "Tavs bankas konts tikko iesniedza atlūgumu.",
+  "Roltons šomēnes. Varbūt ar ūdeni, varbūt bez.",
+  "Kazino algoritms par tevi šobrīd raksta atsauksmi.",
+  "Statistika atkal uzvarēja. Tā kā vienmēr.",
+  "Nauda aizgāja tur, kur vienmēr aiziet — prom.",
 ];
 const JOKES_WIN = [
-  "OHO bagātais ieradies 🤑",
-  "Tagad vari atļauties ķiploku mērci 🧄",
-  "Kazino darbinieki sāk nervozēt 😰",
-  "Miljonārs loading... 💸",
-  "Tu tiko aplaupīji kazino 🏦",
-  "Ferrari vēl nav, bet kebabs sanāk 🌯",
-  "Tagad vari flexot Discordā 😎",
-  "Sigma grind pays off 💪",
+  "Labi. Bet kazino to atcerēsies.",
+  "Statistika vēl atgūsies. Pagaidi.",
+  "Tu uzvarēji. Kazino to sauc par 'pagaidu kļūdu'.",
+  "Lieliski. Tagad apstājies, kamēr esi priekšā.",
+  "Reizi gadā arī salauzts pulkstenis rāda pareizi.",
+  "Kazino deva tev cerību. Tas ir bīstamāk par zaudējumu.",
+  "Uzvara reģistrēta. Turpinājums paredzams standarta.",
+  "Šoreiz veicās. Algoritms jau labo kļūdu.",
 ];
 
 function randJoke(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
@@ -82,6 +80,14 @@ const progText   = document.getElementById('prog-text');
 const spinBtn    = document.getElementById('spin');
 const winOverlay = document.getElementById('win-overlay');
 const winSubText = document.getElementById('win-sub-text');
+
+function setControlsDisabled(disabled) {
+  spinBtn.disabled = disabled;
+  document.getElementById('plus').disabled = disabled;
+  document.getElementById('minus').disabled = disabled;
+  document.getElementById('max-btn').disabled = disabled;
+  document.querySelectorAll('.qbtn').forEach(b => b.disabled = disabled);
+}
 
 function updateUI() {
   balEl.textContent     = balance.toFixed(2) + ' €';
@@ -109,7 +115,7 @@ document.getElementById('win-close').onclick  = resetGame;
 function resetGame() {
   balance = START_BAL; bet = MIN_BET; spinning = false;
   currentAngle = 0; totalSpins = 0;
-  spinBtn.disabled = false;
+  setControlsDisabled(false);
   winOverlay.classList.remove('show');
   resultEl.textContent = 'Spiedi GRIEZT!';
   resultEl.style.color = '#ff9900';
@@ -196,7 +202,7 @@ spinBtn.onclick = () => {
   if (balance < bet) { resultEl.style.color = '#ff3333'; resultEl.textContent = '❌ Nav pietiekami naudas!'; jokeEl.textContent = 'Taupīgais investors detected 📊'; return; }
 
   spinning = true;
-  spinBtn.disabled = true;
+  setControlsDisabled(true);
   resultEl.style.color = '#ff9900';
   resultEl.textContent = '🎰 ...';
   jokeEl.textContent = '';
@@ -266,25 +272,20 @@ spinBtn.onclick = () => {
     if (balance < MIN_BET) {
       resultEl.style.color = '#ff3333';
       jokeEl.textContent   = 'Maks tukšs. Ej mājās. 💸';
-      spinBtn.disabled     = true;
+      setControlsDisabled(true);
       spinning             = false;
       return;
     }
 
-    spinning         = false;
-    spinBtn.disabled = false;
+    spinning = false;
+    setControlsDisabled(false);
   }
 
   requestAnimationFrame(frame);
 };
-// MAX poga
+
 document.getElementById('max-btn').onclick = () => {
   bet = +balance.toFixed(2);
-
-  // lai nevar būt mazāk par minimumu
-  if (bet < MIN_BET) {
-    bet = MIN_BET;
-  }
-
+  if (bet < MIN_BET) bet = MIN_BET;
   updateUI();
 };

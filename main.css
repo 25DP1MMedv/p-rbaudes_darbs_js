@@ -132,13 +132,13 @@ h1 {
 }
 
 #result {
-  font-size: 20px;
+  font-size: 40px;
   color: #ff9900;
   font-weight: 700;
 }
 
 #joke {
-  font-size: 13px;
+  font-size: 30px;
   color: #666;
   margin-top: 3px;
 }
@@ -382,4 +382,32 @@ h1 {
 
 .max-btn:active{
     transform:scale(0.98);
+}
+#odds-box {
+  background: #0d0000;
+  border: 1px solid #2a0000;
+  border-radius: 6px;
+  padding: 10px 14px;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 12px;
+}
+.odds-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 25px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #1a0000;
+  border: 1px solid #3a0000;
+  color: #ff4444;
+}
+.odds-row span:first-child {
+  color: #ff4444;
+  font-weight: 500;
+}
+.odds-row span:last-child {
+  font-weight: 700;
+  color: #ff0000;
 }
