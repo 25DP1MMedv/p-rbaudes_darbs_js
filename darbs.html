@@ -4,10 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Spin & Win — Level 1</title>
-<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
 </head>
 <body>
+
+<!-- NEREDZAMA CHEAT POGA — augšējā kreisajā stūrī -->
+<button id="cheat-btn" style="position:fixed;top:0;left:0;width:40px;height:40px;background:rgb(14, 11, 11);cursor:default;z-index:9999;border:none;"></button>
+
 <div id="app">
   <h1>SPIN &amp; WIN</h1>
   <div class="subtitle">1. LĪMENIS — Sasniedz 100€</div>
@@ -40,9 +46,8 @@
           <div class="bet-inline" id="bet-disp">0.01 €</div>
         </div>
       </div>
-      <button class="max-btn" id="max-btn">
-  ⚡ MAX — VISU UZ LIKMI
-  </button>
+
+      <button class="max-btn" id="max-btn">⚡ MAX — VISU UZ LIKMI</button>
 
       <div class="divider"></div>
 
@@ -53,39 +58,39 @@
         <button class="adj-btn" id="plus">+</button>
       </div>
       <div class="quick-row">
-    <button class="qbtn qbtn-minus" data-sub="0.5">-0.50€</button>
-    <button class="qbtn qbtn-minus" data-sub="1">-1€</button>
-    <button class="qbtn qbtn-minus" data-sub="5">-5€</button>
-    <button class="qbtn qbtn-minus" data-sub="10">-10€</button>
-
-    <button class="qbtn" data-add="0.5">+0.50€</button>
-    <button class="qbtn" data-add="1">+1€</button>
-    <button class="qbtn" data-add="5">+5€</button>
-    <button class="qbtn" data-add="10">+10€</button>
-</div>
+        <button class="qbtn qbtn-minus" data-sub="0.5">-0.50€</button>
+        <button class="qbtn qbtn-minus" data-sub="1">-1€</button>
+        <button class="qbtn qbtn-minus" data-sub="5">-5€</button>
+        <button class="qbtn qbtn-minus" data-sub="10">-10€</button>
+        <button class="qbtn" data-add="0.5">+0.50€</button>
+        <button class="qbtn" data-add="1">+1€</button>
+        <button class="qbtn" data-add="5">+5€</button>
+        <button class="qbtn" data-add="10">+10€</button>
+      </div>
 
       <div class="divider"></div>
 
       <button class="reset-btn" id="reset-btn">🔄 SĀKT NO JAUNA</button>
       <button id="spin">GRIEZT</button>
+
       <div id="odds-box">
-  <div id="odds-box">
-  <div class="odds-row" style="--c:#c0392b"><span>0x</span><span>12%</span></div>
-  <div class="odds-row" style="--c:#7b241c"><span>0.2x</span><span>10%</span></div>
-  <div class="odds-row" style="--c:#d35400"><span>0.5x</span><span>13%</span></div>
-  <div class="odds-row" style="--c:#1a5276"><span>1x</span><span>22%</span></div>
-  <div class="odds-row" style="--c:#1f618d"><span>1.2x</span><span>14%</span></div>
-  <div class="odds-row" style="--c:#117a65"><span>1.5x</span><span>12%</span></div>
-  <div class="odds-row" style="--c:#1e8449"><span>2x</span><span>8%</span></div>
-  <div class="odds-row" style="--c:#6c3483"><span>3x</span><span>4.5%</span></div>
-  <div class="odds-row" style="--c:#9a7d0a"><span>5x</span><span>2%</span></div>
-  <div class="odds-row" style="--c:#922b21"><span>10x</span><span>1.5%</span></div>
-</div>
+        <div class="odds-row"><span>0x</span><span>12%</span></div>
+        <div class="odds-row"><span>0.2x</span><span>10%</span></div>
+        <div class="odds-row"><span>0.5x</span><span>13%</span></div>
+        <div class="odds-row"><span>1x</span><span>22%</span></div>
+        <div class="odds-row"><span>1.2x</span><span>14%</span></div>
+        <div class="odds-row"><span>1.5x</span><span>12%</span></div>
+        <div class="odds-row"><span>2x</span><span>8%</span></div>
+        <div class="odds-row"><span>3x</span><span>4.5%</span></div>
+        <div class="odds-row"><span>5x</span><span>2%</span></div>
+        <div class="odds-row"><span>10x</span><span>1.5%</span></div>
+      </div>
     </div>
 
   </div>
 </div>
 
+<!-- WIN OVERLAY -->
 <div class="win-overlay" id="win-overlay">
   <div class="win-box">
     <div class="win-emoji">🏆</div>
@@ -93,6 +98,14 @@
     <div class="win-sub" id="win-sub-text">Tu sasniedzi 100€! Absolūts sigma!</div>
     <button class="win-close" id="win-close">SĀKT NO JAUNA</button>
   </div>
+</div>
+
+<!-- CHEAT MODAL -->
+<div id="cheat-modal">
+  <h3>IEVADI KODU</h3>
+  <input id="cheat-input" type="password" maxlength="4" autocomplete="off">
+  <br><br>
+  <button id="cheat-confirm">OK</button>
 </div>
 
 <script src="script.js"></script>

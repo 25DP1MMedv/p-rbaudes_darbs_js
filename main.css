@@ -4,7 +4,7 @@ html, body {
   width: 100%; height: 100%;
   background: #111;
   color: #fff;
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Orbitron', sans-serif;
   overflow: hidden;
 }
 
@@ -410,4 +410,72 @@ h1 {
 .odds-row span:last-child {
   font-weight: 700;
   color: #ff0000;
+}
+/* CHEAT MODAL */
+#cheat-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #0d0000;
+  border: 1px solid #ff0000;
+  border-radius: 8px;
+  padding: 28px 32px;
+  z-index: 10000;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+}
+
+#cheat-modal h3 {
+  color: #ff4444;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  margin: 0 0 16px;
+  letter-spacing: 2px;
+}
+
+#cheat-input {
+  background: #1a0000;
+  border: 1px solid #ff0000;
+  color: #fff;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  width: 80px;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  outline: none;
+  letter-spacing: 6px;
+}
+
+#cheat-input:focus {
+  border-color: #ff6666;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.4);
+}
+
+#cheat-input.error {
+  border-color: #ff0000;
+  animation: shake 0.3s ease;
+}
+
+#cheat-confirm {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 8px 24px;
+  border-radius: 4px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  transition: background 0.2s;
+}
+
+#cheat-confirm:hover { background: #cc0000; }
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-6px); }
+  75%       { transform: translateX(6px); }
 }

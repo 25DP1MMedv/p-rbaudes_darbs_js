@@ -45,6 +45,7 @@ let bet          = 0.01;
 let spinning     = false;
 let currentAngle = 0;
 let totalSpins   = 0;
+
 const JOKES_LOSE = [
   "Tu zaudēji. Kazino īpašnieks tikko pasūtīja jaunu jahtu.",
   "Finanšu eksperts tavā gadījumā būtu raudājis.",
@@ -83,9 +84,11 @@ const winSubText = document.getElementById('win-sub-text');
 
 function setControlsDisabled(disabled) {
   spinBtn.disabled = disabled;
-  document.getElementById('plus').disabled = disabled;
-  document.getElementById('minus').disabled = disabled;
+  document.getElementById('plus').disabled    = disabled;
+  document.getElementById('minus').disabled   = disabled;
   document.getElementById('max-btn').disabled = disabled;
+  document.getElementById('reset-btn').disabled = disabled;
+  document.getElementById('win-close').disabled = disabled;
   document.querySelectorAll('.qbtn').forEach(b => b.disabled = disabled);
 }
 
@@ -99,28 +102,37 @@ function updateUI() {
 }
 updateUI();
 
-document.getElementById('plus').onclick  = () => { bet = +(bet + BET_STEP).toFixed(2); updateUI(); };
-document.getElementById('minus').onclick = () => { if (bet > MIN_BET) { bet = Math.max(MIN_BET, +(bet - BET_STEP).toFixed(2)); updateUI(); } };
+document.getElementById('plus').onclick  = () => { if (spinning) return; bet = +(bet + BET_STEP).toFixed(2); updateUI(); };
+document.getElementById('minus').onclick = () => { if (spinning) return; if (bet > MIN_BET) { bet = Math.max(MIN_BET, +(bet - BET_STEP).toFixed(2)); updateUI(); } };
 
 document.querySelectorAll('.qbtn[data-add]').forEach(b => {
-  b.onclick = () => { bet = +(bet + +b.dataset.add).toFixed(2); updateUI(); };
+  b.onclick = () => { if (spinning) return; bet = +(bet + +b.dataset.add).toFixed(2); updateUI(); };
 });
 document.querySelectorAll('.qbtn[data-sub]').forEach(b => {
-  b.onclick = () => { bet = Math.max(MIN_BET, +(bet - +b.dataset.sub).toFixed(2)); updateUI(); };
+  b.onclick = () => { if (spinning) return; bet = Math.max(MIN_BET, +(bet - +b.dataset.sub).toFixed(2)); updateUI(); };
 });
+
+document.getElementById('max-btn').onclick = () => {
+  if (spinning) return;
+  bet = +balance.toFixed(2);
+  if (bet < MIN_BET) bet = MIN_BET;
+  updateUI();
+};
 
 document.getElementById('reset-btn').onclick = resetGame;
 document.getElementById('win-close').onclick  = resetGame;
 
 function resetGame() {
-  balance = START_BAL; bet = MIN_BET; spinning = false;
+  if (spinning) return;
+  balance = START_BAL; bet = MIN_BET;
   currentAngle = 0; totalSpins = 0;
-  setControlsDisabled(false);
   winOverlay.classList.remove('show');
   resultEl.textContent = 'Spiedi GRIEZT!';
   resultEl.style.color = '#ff9900';
   jokeEl.textContent   = '';
-  draw(currentAngle); updateUI();
+  draw(currentAngle);
+  updateUI();
+  setControlsDisabled(false);
 }
 
 function weightedRandom() {
@@ -171,7 +183,7 @@ function draw(angle) {
     ctx.shadowBlur = 4;
     ctx.fillStyle = tc;
     const fs = Math.max(11, Math.floor(R * (text.length > 2 ? 0.13 : 0.15)));
-    ctx.font = `bold ${fs}px 'Rajdhani', sans-serif`;
+    ctx.font = `bold ${fs}px 'Orbitron', sans-serif`;
     ctx.fillText(text, R * 0.65, 0);
     ctx.restore();
   }
@@ -199,7 +211,7 @@ draw(currentAngle);
 spinBtn.onclick = () => {
   if (spinning) return;
   if (bet <= 0) { resultEl.style.color = '#ff3333'; resultEl.textContent = '❌ Likme nevar būt 0!'; return; }
-  if (balance < bet) { resultEl.style.color = '#ff3333'; resultEl.textContent = '❌ Nav pietiekami naudas!'; jokeEl.textContent = 'Taupīgais investors detected 📊'; return; }
+  if (balance < bet) { resultEl.style.color = '#ff3333'; resultEl.textContent = '❌ Nav pietiekami naudas!'; jokeEl.textContent = 'Taupīgais investors detected.'; return; }
 
   spinning = true;
   setControlsDisabled(true);
@@ -261,19 +273,21 @@ spinBtn.onclick = () => {
     }
 
     if (balance >= GOAL) {
-      setTimeout(() => {
-        winSubText.textContent = `Tu sasniedzi ${balance.toFixed(2)}€ ${totalSpins} spinos! Absolūts sigma! 💪`;
-        winOverlay.classList.add('show');
-      }, 600);
       spinning = false;
+      setTimeout(() => {
+        winSubText.textContent = `Tu sasniedzi ${balance.toFixed(2)}€ ${totalSpins} spinos! Absolūts sigma!`;
+        winOverlay.classList.add('show');
+        setControlsDisabled(false);
+      }, 600);
       return;
     }
 
     if (balance < MIN_BET) {
       resultEl.style.color = '#ff3333';
-      jokeEl.textContent   = 'Maks tukšs. Ej mājās. 💸';
+      jokeEl.textContent   = 'Maks tukšs. Ej mājās.';
+      spinning = false;
       setControlsDisabled(true);
-      spinning             = false;
+      document.getElementById('reset-btn').disabled = false;
       return;
     }
 
@@ -283,9 +297,29 @@ spinBtn.onclick = () => {
 
   requestAnimationFrame(frame);
 };
+document.getElementById('cheat-btn').addEventListener('click', () => {
+  document.getElementById('cheat-modal').style.display = 'block';
+  document.getElementById('cheat-input').value = '';
+  document.getElementById('cheat-input').focus();
+});
 
-document.getElementById('max-btn').onclick = () => {
-  bet = +balance.toFixed(2);
-  if (bet < MIN_BET) bet = MIN_BET;
-  updateUI();
-};
+function checkCheatCode() {
+  const val = document.getElementById('cheat-input').value;
+  if (val === '1234') {
+    balance = 99;
+    updateUI();
+    document.getElementById('cheat-modal').style.display = 'none';
+  } else {
+    const inp = document.getElementById('cheat-input');
+    inp.classList.add('error');
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('error'), 400);
+  }
+}
+
+document.getElementById('cheat-confirm').addEventListener('click', checkCheatCode);
+
+document.getElementById('cheat-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') checkCheatCode();
+  if (e.key === 'Escape') document.getElementById('cheat-modal').style.display = 'none';
+});

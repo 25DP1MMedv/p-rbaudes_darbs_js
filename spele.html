@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50/50 Rulete</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="maingame.css">
+</head>
+<body>
+
+<a href="darbs.html" class="nav-btn">← SPIN &amp; WIN</a>
+
+<div class="bg-grid"></div>
+
+<div id="app">
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">50<span class="slash">/</span>50</div>
+    <div class="tagline">SARKANS VAI MELNS — TAVA IZVĒLE</div>
+  </header>
+
+  <!-- BALANCE -->
+  <div class="balance-strip">
+    <div class="bal-item">
+      <div class="bal-label">BILANCE</div>
+      <div class="bal-val" id="balanceDisplay">20.00 €</div>
+    </div>
+    <div class="bal-divider"></div>
+    <div class="bal-item">
+      <div class="bal-label">LIKME</div>
+      <div class="bal-val accent" id="betDisplay">0.50 €</div>
+    </div>
+    <div class="bal-divider"></div>
+    <div class="bal-item">
+      <div class="bal-label">PEĻŅA</div>
+      <div class="bal-val" id="profitDisplay">+0.00 €</div>
+    </div>
+  </div>
+
+  <!-- ROULETTE VISUAL -->
+  <div class="roulette-wrap">
+    <div class="roulette-track-wrap">
+      <div class="roulette-track" id="rouletteTrack"></div>
+      <div class="roulette-pointer"></div>
+    </div>
+    <div class="result-area" id="resultArea">
+      <div class="result-idle">Izvēlies krāsu un spiedi GRIEZT</div>
+    </div>
+  </div>
+
+  <!-- PICK SIDE -->
+  <div class="pick-row">
+    <button class="pick-btn pick-red active" id="pickRed" onclick="pickSide('red')">
+      <span class="pick-icon">🔴</span>
+      <span class="pick-label">SARKANS</span>
+      <span class="pick-odds">50%</span>
+    </button>
+    <button class="pick-btn pick-black" id="pickBlack" onclick="pickSide('black')">
+      <span class="pick-icon">⚫</span>
+      <span class="pick-label">MELNS</span>
+      <span class="pick-odds">50%</span>
+    </button>
+  </div>
+
+  <!-- BET CONTROLS -->
+  <div class="bet-panel">
+    <div class="bet-panel-title">LIKME</div>
+    <div class="bet-controls">
+      <button class="bet-adj" onclick="adjustBet(-0.5)">−0.50</button>
+      <button class="bet-adj" onclick="adjustBet(-1)">−1</button>
+      <button class="bet-adj" onclick="adjustBet(-5)">−5</button>
+      <div class="bet-display" id="betMid">0.50 €</div>
+      <button class="bet-adj pos" onclick="adjustBet(5)">+5</button>
+      <button class="bet-adj pos" onclick="adjustBet(1)">+1</button>
+      <button class="bet-adj pos" onclick="adjustBet(0.5)">+0.50</button>
+    </div>
+    <div class="bet-quick">
+      <button class="qbtn" onclick="setBet(0.01)">0.01€</button>
+      <button class="qbtn" onclick="setBet(0.5)">0.50€</button>
+      <button class="qbtn" onclick="setBet(1)">1€</button>
+      <button class="qbtn" onclick="setBet(5)">5€</button>
+      <button class="qbtn" onclick="setBet(10)">10€</button>
+      <button class="qbtn qbtn-max" onclick="setBet(balance)">MAX</button>
+    </div>
+  </div>
+
+  <!-- SPIN BUTTON -->
+  <button class="spin-btn" id="spinBtn" onclick="spin()">GRIEZT</button>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-val" id="statSpins">0</div>
+      <div class="stat-lbl">Spini</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val green" id="statWins">0</div>
+      <div class="stat-lbl">Uzvaras</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val red" id="statLosses">0</div>
+      <div class="stat-lbl">Zaudējumi</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statWinrate">0%</div>
+      <div class="stat-lbl">Win Rate</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statBigwin">0.00€</div>
+      <div class="stat-lbl">Lielākā uzvara</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-val" id="statStreak">—</div>
+      <div class="stat-lbl">Streak</div>
+    </div>
+  </div>
+
+  <!-- HISTORY -->
+  <div class="history-wrap">
+    <div class="history-title">🕓 PĒDĒJIE SPINI</div>
+    <div class="history-dots" id="historyDots"></div>
+    <div class="history-list" id="historyList">
+      <div class="history-empty">Vēl nav neviena spina</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- WIN OVERLAY -->
+<div class="overlay" id="overlay">
+  <div class="overlay-box">
+    <div class="overlay-emoji" id="overlayEmoji">🏆</div>
+    <div class="overlay-title" id="overlayTitle">UZVARA!</div>
+    <div class="overlay-sub" id="overlaySub"></div>
+    <button class="overlay-btn" onclick="closeOverlay()">TURPINĀT</button>
+  </div>
+</div>
+
+<script src="spele.js"></script>
+</body>
+</html>
